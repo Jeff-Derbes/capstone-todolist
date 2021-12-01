@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+
+    <button id="rules-btn" class=" rules-btn">Getting Started</button>
+
+    <div class="rules">
+        <h2>Welcome To Your New ToDo List App!</h2>
+        <p>
+            This app was designed to make your life just a bit easier by keeping track of all the things you need get done.
+        </p>
+        <p>
+            Simply click where it says "New Item"  and type in a new todo and the app will add it to your list! Once you have completed one of the items on your list, you can go ahead and check it off. The app will then get rid of it for you!
+        </p>
+
+        <button id="close-btn" class="btn">Close</button>
+
+    </div>
+
+    <div class="box" id="heading">
+        <h1>
+            <%= listTitle %>
+        </h1>
+    </div>
+
+    <div class="box">
+
+        <% newListItems.forEach(item=> { %>
+        <form action="/delete" method="post">
+
+            <div class="item">
+                <input type="checkbox"  name="checkbox" value="<%=item._id%>" onChange="this.form.submit()">
+                <p>
+                    <%= item.name %>
+                </p>
+            </div>
+            <%})%> 
+
+        </form>
+        <form action="/" method="post" class="item">
+            <input type="text" name="newItem" autocomplete="off" placeholder="New Item">
+            <button type="submit" name="list" value="<%= listTitle %>" class="addbutton">+</button>
+         </form>
+
+    </div>
+
+
+
+
+<script src="../script.js"></script>
+</body>
+
+</html>
