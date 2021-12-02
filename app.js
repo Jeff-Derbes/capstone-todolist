@@ -39,8 +39,17 @@ const Item = mongoose.model("Item", itemsSchema)
 //Render current list items
 app.get('/', (req, res) => {
 
+    let today = new Date()
+    let options = {
+        weekday: "long",
+        day: "numeric",
+        month: "long"
+    }
+
+    let day = today.toLocaleDateString('en-us', options)
+
     Item.find({}, (err, foundItems) => {
-         res.render('list', { listTitle: "Today", newListItems: foundItems })
+         res.render('list', { listTitle: day, newListItems: foundItems})
     })
 })
 
