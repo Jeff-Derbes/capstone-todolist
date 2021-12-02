@@ -45,7 +45,7 @@ let day = today.toLocaleDateString('en-us', options)
 app.get('/', (req, res) => {
 
     Item.find({}, (err, foundItems) => {
-         res.render('list', { listTitle: "Your List", newListItems: foundItems, day: day})
+         res.render('list', { listTitle: "Today", newListItems: foundItems})
     })
 })
 
@@ -59,9 +59,9 @@ app.post('/', (req, res) => {
        name: itemName
    })
 
-   if (listName === "Your List"){
+   if (listName === "Today"){
        item.save()
-       res.redirect('/')
+       res.redirect(`/`)
    }else{
        List.findOne({name: listName}, (err, foundList) => {
            foundList.items.push(item)
@@ -85,7 +85,7 @@ app.get('/:customListName', (req, res) => {
                 list.save();
                 res.redirect(`/${customListName}`)
             }else {
-                res.render("list", {listTitle: foundList.name, newListItems: foundList.items, day: day})
+                res.render("list", {listTitle: foundList.name, newListItems: foundList.items})
             }
         }
     })
@@ -98,13 +98,13 @@ app.post('/delete', (req, res) => {
     const checkedItemId = req.body.checkbox
     const listName = req.body.listName
 
-    if (listName === "Your List"){
+    if (listName === "Today"){
         Item.findByIdAndDelete(checkedItemId, (err) => {
             if (!err){
                 console.log('Item deleted')
+                res.redirect('/')
             }
         })
-        res.redirect('/')
     }else{
         List.findOneAndUpdate({name: listName}, {$pull: {items: {_id: checkedItemId}}}, (err, foundList) => {
             if (!err){
