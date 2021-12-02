@@ -45,7 +45,7 @@ let day = today.toLocaleDateString('en-us', options)
 app.get('/', (req, res) => {
 
     Item.find({}, (err, foundItems) => {
-         res.render('list', { listTitle: "Today", newListItems: foundItems})
+         res.render('list', { listTitle: "Your List", newListItems: foundItems, day: day})
     })
 })
 
@@ -59,7 +59,7 @@ app.post('/', (req, res) => {
        name: itemName
    })
 
-   if (listName === "Today"){
+   if (listName === "Your List"){
        item.save()
        res.redirect(`/`)
    }else{
@@ -85,7 +85,7 @@ app.get('/:customListName', (req, res) => {
                 list.save();
                 res.redirect(`/${customListName}`)
             }else {
-                res.render("list", {listTitle: foundList.name, newListItems: foundList.items})
+                res.render("list", {listTitle: foundList.name, newListItems: foundList.items, day: day})
             }
         }
     })
@@ -98,7 +98,7 @@ app.post('/delete', (req, res) => {
     const checkedItemId = req.body.checkbox
     const listName = req.body.listName
 
-    if (listName === "Today"){
+    if (listName === "Your List"){
         Item.findByIdAndDelete(checkedItemId, (err) => {
             if (!err){
                 console.log('Item deleted')
