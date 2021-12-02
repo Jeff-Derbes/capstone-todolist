@@ -12,5 +12,6 @@ This project is a simple and elegant todo list app that allows the user to creat
 
 - View current list contents
 - Create new list items
+- Create custom lists
 - Delete items from your list once complete
 - Persistent list data

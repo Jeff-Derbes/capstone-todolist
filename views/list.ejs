@@ -21,6 +21,7 @@
         <p>
             Simply click where it says "New Item"  and type in a new todo and the app will add it to your list! Once you have completed one of the items on your list, you can go ahead and check it off. The app will then get rid of it for you!
         </p>
+        <p>To create a custom list, go the url and type "/list name" so for example, a school list would look like https://todolist-capstone.herokuapp.com/School</p>
 
         <button id="close-btn" class="btn">Close</button>
 
@@ -28,7 +29,7 @@
 
     <div class="box" id="heading">
         <h1>
-            <%= listTitle %>
+           <%= day %> <br>  <%= listTitle %>
         </h1>
     </div>
 
@@ -42,6 +43,7 @@
                 <p>
                     <%= item.name %>
                 </p>
+                <input type="hidden" name="listName" value="<%= listTitle %>"> 
             </div>
             <%})%> 
 
